@@ -71,7 +71,7 @@ abstract class CI_DB_query_builder extends CI_DB_driver {
 	 *
 	 * @var	array
 	 */
-	protected $qb_select			= array();
+	public $qb_select			= array();
 
 	/**
 	 * QB DISTINCT flag
@@ -141,7 +141,7 @@ abstract class CI_DB_query_builder extends CI_DB_driver {
 	 *
 	 * @var	array
 	 */
-	protected $qb_orderby			= array();
+	public $qb_orderby			= array();
 
 	/**
 	 * QB data sets
