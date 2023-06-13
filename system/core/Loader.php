@@ -501,13 +501,13 @@ class CI_Loader {
 		$measure = "View - $view";
 		$CI =& get_instance();
 
-		if ($CI->debugbar) {
+		if (property_exists($CI, "debugbar") && $CI->debugbar) {
 			$CI->debugbar["time"]->startMeasure($measure);
 		}
 
 		$result = $this->_ci_load(array('_ci_view' => $view, '_ci_vars' => $this->_ci_prepare_view_vars($vars), '_ci_return' => $return));
 
-		if ($CI->debugbar) {
+		if (property_exists($CI, "debugbar") && $CI->debugbar && $CI->debugbar["time"]->hasStartedMeasure($measure)) {
 			$CI->debugbar["time"]->stopMeasure($measure);
 		}
 
