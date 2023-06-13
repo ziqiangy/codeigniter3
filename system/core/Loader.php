@@ -498,7 +498,20 @@ class CI_Loader {
 	 */
 	public function view($view, $vars = array(), $return = FALSE)
 	{
-		return $this->_ci_load(array('_ci_view' => $view, '_ci_vars' => $this->_ci_prepare_view_vars($vars), '_ci_return' => $return));
+		$measure = "View - $view";
+		$CI =& get_instance();
+
+		if ($CI->debugbar) {
+			$CI->debugbar["time"]->startMeasure($measure);
+		}
+
+		$result = $this->_ci_load(array('_ci_view' => $view, '_ci_vars' => $this->_ci_prepare_view_vars($vars), '_ci_return' => $return));
+
+		if ($CI->debugbar) {
+			$CI->debugbar["time"]->stopMeasure($measure);
+		}
+
+		return $result;
 	}
 
 	// --------------------------------------------------------------------
