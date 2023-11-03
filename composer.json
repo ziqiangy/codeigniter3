@@ -1,14 +1,11 @@
 {
 	"description": "The CodeIgniter framework",
-	"name": "codeigniter/framework",
+	"name": "pocketarc/codeigniter",
 	"type": "project",
-	"homepage": "https://codeigniter.com",
+	"homepage": "https://github.com/pocketarc/codeigniter",
 	"license": "MIT",
 	"support": {
-		"forum": "https://forum.codeigniter.com/",
-		"wiki": "https://github.com/bcit-ci/CodeIgniter/wiki",
-		"slack": "https://codeigniterchat.slack.com",
-		"source": "https://github.com/bcit-ci/CodeIgniter"
+		"source": "https://github.com/pocketarc/codeigniter"
 	},
 	"require": {
 		"php": ">=5.4.8"
