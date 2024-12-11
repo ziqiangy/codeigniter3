@@ -1,0 +1,89 @@
+/*Prevent horizontal bar show when overflow*/
+html{overflow: auto; overflow-x:hidden}
+
+#sidebar{
+    /* height: 100%; */
+    width:240px;
+    height: 100vh;
+    /* background-color: #0c404d; */
+    /* background-color: #212529; */
+
+    background-color:rgba(33, 37, 41);
+
+    position:fixed;
+    top:0;
+    left:0;
+
+    z-index: 9999;
+    transition: all 0.4s;
+
+}
+
+#sidebar.active{
+    margin-left:-240px;
+}
+
+#content{
+    margin-left: 240px;
+}
+#content.active{
+    margin-left: 0;
+}
+
+@media (max-width:768px){
+    #sidebar{
+        margin-left:-240px;
+    }
+    #sidebar.active{
+        margin-left:0;
+    }
+    #content{
+        margin-left: 0;
+    }
+    #content.active{
+        margin-left: 240px;
+    }
+}
+
+/*workglue logo navbar-head*/
+#headerLogo {
+    width:100%;
+}
+
+
+
+
+
+.form-control::placeholder{
+    color: black;
+}
+
+#mainPage{
+
+    padding:20px;
+}
+
+
+
+#header_search_query{
+    border-radius:100px;
+}
+
+.navbar{
+    padding:.5rem 1rem !important;
+}
+
+
+.navbar-toggler:focus {
+    text-decoration: none;
+    outline: 0;
+    box-shadow: none !important;
+}
+
+
+#sidebarCollapse{
+    padding: 0 12px 0 0;
+    text-align: center; 
+    cursor:pointer;
+    
+}

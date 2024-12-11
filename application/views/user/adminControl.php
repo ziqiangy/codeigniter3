@@ -1,0 +1,1 @@
+<h1>this is admin control panel page</h1>
