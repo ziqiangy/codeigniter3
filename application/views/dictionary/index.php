@@ -27,8 +27,6 @@
         text-decoration: none;
         background-color: transparent
     }
-
-
 </style>
 
 <!-- Page Heading -->
@@ -52,17 +50,22 @@
                                 <div class="form-floating">
                                     <input type="text" class="form-control" id="vocab" placeholder="">
                                     <label for="vocab">Search</label>
-                                </div>    
+                                </div>
                             </div>
                             <div class="col-auto align-self-center">
                                 <input class="btn btn-primary" type="submit" id="vocab_search" value="Search">
+                            </div>
+                            <div class="col-auto align-self-center">
+
+                                <input class="btn btn-primary" type="submit" id="add_card" value="Add Card">
+
                             </div>
                         </div>
 
 
                         <div id="definition"></div>
                     </div>
-                    
+
                 </div>
             </div>
         </div>
@@ -80,20 +83,106 @@
     // #vocab_search
     // #definition
 
+    $("#add_card").hide()
+
     $("#vocab_search").click(() => {
-        var vocab = $("#vocab").val();
-        $.ajax({
+        function ajaxSearch(){
+            var vocab = $("#vocab").val();
+            return $.ajax({
             type: "post",
             url: "<?php echo base_url(); ?>index.php/dictionary/search",
             data: {
                 "vocab": vocab
-            },
-            success: data => {
-                // console.log(data);
+            }
+            
+        });
+        }
+
+
+
+
+        $.when(ajaxSearch())
+        .then(
+            function(data){
                 $('#definition').empty();
                 [data] = data;
                 $("#definition").append("<p>" + data.def + "</p>");
             }
-        })
+        )
+        .then(
+            $("#add_card").show()
+        )
+        .then(
+
+            // var vocab = $("#vocab").val();
+            //     var def = $("#definition p:first").text();
+                $.ajax({
+                    type: "post",
+                    url: "<?php echo base_url(); ?>index.php/dictionary/word_saved",
+                    data: {
+                        "term": $("#vocab").val()
+                    },
+                    success: data => {
+                        if(data.exist==1){
+                            //exist word, disable button
+                            $("#add_card").attr("value","Card Added");
+                            $("#add_card").addClass("disabled");
+                            $("#add_card").removeClass("class btn-primary").addClass("class btn-secondary");
+
+                        }else{
+                             $("#add_card").attr("value","Add to Card");
+                             $("#add_card").removeClass("disabled");
+                             $("#add_card").removeClass("class btn-secondary").addClass("class btn-primary");
+                        }
+
+                    }
+
+                })
+            
+            
+        )
     })
+
+
+    
+                $("#add_card").click(() => {
+                var vocab = $("#vocab").val();
+                var def = $("#definition p:first").text();
+                $.ajax({
+                    type: "post",
+                    url: "<?php echo base_url(); ?>index.php/dictionary/word_saved",
+                    data: {
+                        "term": vocab
+                    },
+                    success: data => {
+                        if(data.exist==1){
+                            //exist word, disable button
+                            $("#add_card").attr("value","Card Added");
+                            $("#add_card").addClass("disabled");
+                            $("#add_card").removeClass("class btn-primary").addClass("class btn-secondary");
+
+                        }else if(data.exist==0){
+                            //new word, save data then disable button
+                            $.ajax({
+                                type:"post",
+                                url:"<?php echo base_url();?>index.php/dictionary/addcard",
+                                data:{
+                                    "vocab":vocab,
+                                    "def":def
+                                },
+                                success: ()=>{
+                                    $("#add_card").attr("value","Card Added");
+                                    $("#add_card").addClass("disabled");
+                                    $("#add_card").removeClass("class btn-primary").addClass("class btn-secondary");
+
+                                }
+
+                            })
+                        }
+                    }
+                })
+                
+                })
+
+
 </script>

@@ -2,7 +2,7 @@
 
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Welcome extends CI_Controller
+class Home extends CI_Controller
 {
     /**
      * Index Page for this controller.
@@ -24,7 +24,7 @@ class Welcome extends CI_Controller
     public function __construct()
     {
         parent::__construct();
-        if(!isset($_SESSION['user_id'])) {
+        if (!isset($_SESSION['user_id'])) {
             // $this->session->set_flashdata("auth", 'Not authorized user, login first');
             redirect('user/login', 'refresh');
             exit;
@@ -48,7 +48,7 @@ class Welcome extends CI_Controller
 
 
         $this->load->view('templates/header');
-        $this->load->view('welcome_message', $data);
+        $this->load->view('home', $data);
         $this->load->view('templates/footer');
     }
 }

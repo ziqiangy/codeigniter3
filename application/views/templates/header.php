@@ -156,9 +156,9 @@
                         <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
                             <li><?php echo anchor("/", "<span><i class='bi me-2 bi-speedometer2'></i>Dashboard</span>", array("class" => "link-light rounded")); ?>
                             </li>
-                            <li><?php echo anchor("dictionary/", "<span><i class='bi me-2 bi-alphabet'></i>Dictionary</span>", array("class" => "link-light rounded")); ?>
+                            <li><?php echo anchor("dictionary/home", "<span><i class='bi me-2 bi-alphabet'></i>Dictionary</span>", array("class" => "link-light rounded")); ?>
                             </li>
-                            <li><?php echo anchor("scriptures/", "<span><i class='bi me-2 bi-journals'></i>Scriptures</span>", array("class" => "link-light rounded")); ?>
+                            <li><?php echo anchor("scriptures/home", "<span><i class='bi me-2 bi-journals'></i>Scriptures</span>", array("class" => "link-light rounded")); ?>
                             </li>
                             <!-- <li><a href="#" class="link-light rounded"><span><i
                                             class="bi me-2 bi-sticky-fill"></i>Quicknotes</span></a></li>
@@ -272,12 +272,16 @@
                     <div class="d-flex flex-row-reverse collapse navbar-collapse" id="navbarSupportedContent">
                         <?php
                             //only superadmin can register new user
-                            if(isset($_SESSION["superadmin"]) && $_SESSION['superadmin'] == 1) {
-                                echo anchor("user/register", "register", array('class' => 'btn btn-outline-dark me-2'));
-                                echo anchor("user/logout", "logout", array('class' => 'btn btn-outline-dark'));
+                            if (isset($_SESSION["superadmin"]) && $_SESSION['superadmin'] == 1) {
+
+                                echo anchor("user/register", "register", array('class' => 'btn btn-outline-dark ms-2'));
+                                echo anchor("user/logout", "logout", array('class' => 'btn btn-outline-dark ms-2'));
+
+                                echo anchor("/", "superadmin", array('class' => 'btn btn-outline-dark'));
+
                             } else {
                                 //user options
-                                if(isset($_SESSION["user_id"])) {
+                                if (isset($_SESSION["user_id"])) {
                                     //user logged in header
 
                                     echo anchor("user/logout", "logout", array('class' => 'btn btn-outline-dark ms-2'));

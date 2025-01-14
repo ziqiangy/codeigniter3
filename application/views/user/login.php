@@ -1,24 +1,25 @@
-
 <style>
-    .box-father{
-        display:flex;
-        justify-content:center;
-    }
-    .box-child{   
-        width:400px;
-        border:3px solid black;
-        background-color:#fff7d1;
-        border-radius:10px;
-        padding:15px;
-        
+    .box-father {
+        display: flex;
+        justify-content: center;
     }
 
-    .h-title{
-        text-align:center;
+    .box-child {
+        width: 400px;
+        border: 3px solid black;
+        background-color: #fff7d1;
+        border-radius: 10px;
+        padding: 15px;
+
     }
-    .text-father{
-        display:flex;
-        justify-content:center;
+
+    .h-title {
+        text-align: center;
+    }
+
+    .text-father {
+        display: flex;
+        justify-content: center;
     }
 </style>
 
@@ -28,33 +29,48 @@
         <div class="h-title">
             <h1>Login</h1>
         </div>
-    
-        <div class="text-father">
-            <div class="text-child">            
-                
 
-                <?php if(isset($_SESSION['auth'])) echo $_SESSION['auth'] ?>
-                <?php if(isset($err)) echo $err ?>
+        <div class="text-father">
+            <div class="text-child">
+
+
+                <?php if (isset($_SESSION['auth'])) {
+                    echo $_SESSION['auth'];
+                } ?>
+                <?php if (isset($err)) {
+                    echo $err;
+                } ?>
 
                 <?php echo form_open('user/login') ?>
                 <div class="form-group">
-                <label for="username">Username or Email</label>
-                <input type="text" class="form-control" name='username' id="username" value=''>
-                
+                    <label for="username">Username or Email</label>
+                    <input type="text" class="form-control" name='username' id="username" value=''>
+
                 </div>
 
                 <div class="form-group">
-                <label for="password">Password</label>
-                <input class="form-control" type="password" name='password' id="password" value=''>
-                
+                    <label for="password">Password</label>
+                    <input class="form-control" type="password" name='password' id="password" value=''>
+
                 </div>
                 <input class="btn btn-primary mt-2" type="submit" value='login'>
 
                 </form>
 
-                <?php echo anchor('user/register','Don\'t have an account? Go Register'); ?>
-                <br>
-                <?php echo anchor('user/forgetPassword','Forget your password? Go Forget Password'); ?>  
+                <?php echo anchor('google/oauth2callback', 'Continue with Google');?>
+
+                <?php echo "<br>" ?>
+                <?php if (isset($_SESSION['superadmin']) && $_SESSION['superadmin'] == 1) {
+                    echo anchor('user/register', 'Don\'t have an account? Go Register');
+
+                    echo "<br>";
+
+                }
+
+                ?>
+
+
+                <?php echo anchor('user/forgetPassword', 'Forget your password? Go Forget Password'); ?>
             </div>
         </div>
     </div>

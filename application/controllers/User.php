@@ -6,7 +6,7 @@ class User extends CI_Controller
     {
 
         if ($this->input->server('REQUEST_METHOD') === 'GET') {
-            if(isset($_SESSION['superadmin']) && $_SESSION['superadmin'] == 1) {
+            if (isset($_SESSION['superadmin']) && $_SESSION['superadmin'] == 1) {
                 $this->load->view('templates/header');
                 $this->load->view('user/register');
                 $this->load->view('templates/footer');
@@ -17,12 +17,12 @@ class User extends CI_Controller
 
         } elseif ($this->input->server('REQUEST_METHOD') === 'POST') {
 
-            if(!isset($_SESSION['superadmin']) || $_SESSION['superadmin'] != 1) {
+            if (!isset($_SESSION['superadmin']) || $_SESSION['superadmin'] != 1) {
                 echo "not authorized, please login";
                 exit;
             }
             $form_data = $this->input->post();
-            if(!isset($form_data['weakpassword'])) {
+            if (!isset($form_data['weakpassword'])) {
                 $this->form_validation->set_rules("password", "Password", "trim|required|callback_email_check");
             }
             $form_data = array(
@@ -55,7 +55,7 @@ class User extends CI_Controller
      */
     public function email_check($str)
     {
-        if(!preg_match("/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-~]).{8,}$/", $str)) {
+        if (!preg_match("/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-~]).{8,}$/", $str)) {
             $this->form_validation->set_message('email_check', '%s is too simple');
             return false;
         } else {
@@ -65,10 +65,20 @@ class User extends CI_Controller
 
     public function login()
     {
-        if($this->input->server('REQUEST_METHOD') === 'GET') {
-            $this->load->view('templates/header');
-            $this->load->view('user/login');
-            $this->load->view('templates/footer');
+        if ($this->input->server('REQUEST_METHOD') === 'GET') {
+            if (isset($_SESSION['superadmin']) && $_SESSION['superadmin'] == 1) {
+
+
+                $this->load->view('templates/header');
+                $this->load->view('user/adminControl');
+                $this->load->view('templates/footer');
+
+
+            } else {
+                $this->load->view('templates/header');
+                $this->load->view('user/login');
+                $this->load->view('templates/footer');
+            }
         } elseif ($this->input->server('REQUEST_METHOD') === 'POST') {
             $username = $this->input->post('username');
             $password = $this->input->post('password');
@@ -78,7 +88,7 @@ class User extends CI_Controller
             $row = $query->row();
             if (isset($row)) {
                 //Super Admin trying login
-                if($password == $row->password) {
+                if ($password == $row->password) {
 
                     $_SESSION['superadmin'] = 1;
 
@@ -93,12 +103,12 @@ class User extends CI_Controller
             } else {
                 //check regular user login
                 $this->load->model("Users");
-                if($this->Users->searchByUsername($username) || $this->Users->searchByEmail($username)) {
+                if ($this->Users->searchByUsername($username) || $this->Users->searchByEmail($username)) {
                     $this->Users->searchByUsername($username) ? [$data] = $this->Users->searchByUsername($username) : [$data] = $this->Users->searchByEmail($username);
-                    if($data['is_active'] == 1) {
+                    if ($data['is_active'] == 1) {
                         $formPass = $this->hashPass($password);
                         $dbPass = $data['password'];
-                        if($dbPass == $formPass) {
+                        if ($dbPass == $formPass) {
                             $_SESSION['user_id'] = $data['id'];
                             $_SESSION['username'] = $data['username'];
                             // redirect('user/profile','refresh');
@@ -144,7 +154,7 @@ class User extends CI_Controller
 
     public function profile()
     {
-        if(!isset($_SESSION['user_id'])) {
+        if (!isset($_SESSION['user_id'])) {
             $this->session->set_flashdata("auth", 'Not authorized user, login first');
             redirect('user/login');
             exit;
@@ -161,7 +171,7 @@ class User extends CI_Controller
 
     public function forgetPassword()
     {
-        if($this->input->server('REQUEST_METHOD') === 'GET') {
+        if ($this->input->server('REQUEST_METHOD') === 'GET') {
             $this->load->view('templates/header');
             $this->load->view('user/forgetPassword');
             $this->load->view('templates/footer');
@@ -170,12 +180,12 @@ class User extends CI_Controller
             $form_data = $this->input->post();
             $this->load->model("Users");
 
-            if(!$this->Users->searchByEmail($form_data['email'])) {
+            if (!$this->Users->searchByEmail($form_data['email'])) {
                 $this->load->view('templates/header');
                 $this->load->view("user/forgetPassword", array('err' => 'not find this user, try again'));
                 $this->load->view('templates/footer');
 
-            } elseif(!$this->Users->userIsActive($form_data['email'])) {
+            } elseif (!$this->Users->userIsActive($form_data['email'])) {
                 $this->load->view('templates/header');
                 $this->load->view("user/forgetPassword", array('err' => 'This user is not disabled, contact admin'));
                 $this->load->view('templates/footer');
@@ -193,7 +203,7 @@ class User extends CI_Controller
 
     public function newPassword($id = null)
     {
-        if($this->input->server("REQUEST_METHOD") === "GET") {
+        if ($this->input->server("REQUEST_METHOD") === "GET") {
             $this->load->view('templates/header');
             $this->load->view('user/newPassword', array('id' => $id));
 
@@ -201,7 +211,7 @@ class User extends CI_Controller
 
         } elseif ($this->input->server('REQUEST_METHOD') === "POST") {
             $form_data = $this->input->post();
-            if(!preg_match("/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-~]).{8,}$/", $form_data['password'])) {
+            if (!preg_match("/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-~]).{8,}$/", $form_data['password'])) {
                 $this->session->set_flashdata("auth", 'password is not strong enough.');
                 redirect('user/newPassword/'.strval($form_data['id']));
                 //remember redirect is a get request, view with data is a post request
@@ -264,13 +274,13 @@ class User extends CI_Controller
 
     public function insertRole()
     {
-        if($this->input->server('REQUEST_METHOD') === "GET") {
+        if ($this->input->server('REQUEST_METHOD') === "GET") {
             $this->load->view('templates/header');
             $this->load->view('role/insert');
             $this->load->view('templates/footer');
-        } elseif($this->input->server('REQUEST_METHOD') === "POST") {
+        } elseif ($this->input->server('REQUEST_METHOD') === "POST") {
             $form_data = $this->input->post();
-            if(isset($form_data) && !empty($form_data)) {
+            if (isset($form_data) && !empty($form_data)) {
                 $arr = array(
                     "name" => $form_data['name'],
                     "desc_note" => $form_data['desc']

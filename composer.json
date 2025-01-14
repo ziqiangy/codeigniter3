@@ -12,7 +12,7 @@
 	},
 	"require": {
 		"php": ">=5.3.7",
-		"google/apiclient": "2.15.0"
+		"google/apiclient": "2.18.1"
 	},
 	"suggest": {
 		"paragonie/random_compat": "Provides better randomness in PHP 5.x"
