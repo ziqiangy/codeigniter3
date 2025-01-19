@@ -64,12 +64,6 @@
             </div>
         </div>
 
-
-
-
-
-
-
         <div class="col-auto">
 
             <div class="form-check">
@@ -88,6 +82,12 @@
             </div>
 
 
+        </div>
+        <div class="col-auto">
+            <div class="form-floating">
+                <input class="form-control" id="keyword" name="keyword">
+                <label for="keyword">Keyword</label>
+            </div>
         </div>
         <div class="col-auto">
             <input type="submit" class="btn btn-primary" value="Search">

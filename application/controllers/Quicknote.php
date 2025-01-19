@@ -95,11 +95,36 @@ class Quicknote extends CI_Controller
 
         } elseif ($this->input->server("REQUEST_METHOD") == "POST") {
             $data = $this->input->post();
-            if ($data["c_id"] == 0) {
-                $res = $this->QuickNotes->list($this->user_id);
+            if (isset($data["keyword"]) && !empty($data["keyword"])) {
+                //enabled keyword
+
+
+                if ($data["c_id"] == 0) {
+                    //list all categories notes
+                    $q = $this->db->query("SELECT * FROM `quick_notes` WHERE `user_id` = ? AND `content` LIKE ? ORDER BY `id` DESC", array($this->user_id,'%'.$data["keyword"].'%'));
+                    $res = $q->result_array();
+                } else {
+                    //list filtered categories notes
+
+                    $q = $this->db->query("SELECT * FROM `quick_notes` WHERE `user_id` = ? AND `cate_id` = ? AND `content` LIKE ? ORDER BY `id` DESC", array($this->user_id,$data["c_id"],'%'.$data["keyword"].'%'));
+                    $res = $q->result_array();
+
+                }
+
+
             } else {
-                $res = $this->QuickNotes->listWithCate($this->user_id, $data["c_id"]);
+                //no keyword
+                if ($data["c_id"] == 0) {
+                    //list all categories notes
+                    $res = $this->QuickNotes->list($this->user_id);
+                } else {
+                    //list filtered categories notes
+                    $res = $this->QuickNotes->listWithCate($this->user_id, $data["c_id"]);
+                }
+
+
             }
+
 
             $res_c = $this->NoteCates->list($this->user_id);
 
