@@ -37,14 +37,17 @@
 
         </div>
     </div>
+    <hr>
+    <?php echo form_open("quicknote/list");?>
     <div class="row">
         <div class="col-auto">
-            <?php echo form_open("quicknote/list"); ?>
-            <select class="form-control" name="c_id" id="">
-                <option value="0">All</option>
-                <?php
-                foreach($cate as $c) {
-                    if($c['id'] == $c_id) {
+            <div class="form-floating">
+
+                <select class="form-control" name="c_id" id="c_id">
+                    <option value="0">All</option>
+                    <?php
+                foreach ($cate as $c) {
+                    if ($c['id'] == $c_id) {
 
                         echo "<option value='".$c['id']."' SELECTED>".$c['name']."</option>";
 
@@ -56,14 +59,21 @@
 
                 }
             ?>
-            </select>
-
-
+                </select>
+                <label for="c_id">categories</label>
+            </div>
         </div>
+
+
+
+
+
+
+
         <div class="col-auto">
 
             <div class="form-check">
-                <input type="radio" class="form-check-input" name="display" value="content" id="display_content" <?php if($display == "content") {
+                <input type="radio" class="form-check-input" name="display" value="content" id="display_content" <?php if ($display == "content") {
                     echo "CHECKED";
                 } ?>>
                 <label for="display_content" class="form-check-label">Content</label>
@@ -71,7 +81,7 @@
             </div>
             <div class="form-check">
 
-                <input type="radio" class="form-check-input" name="display" value="title" id="display_title" <?php if($display == "title") {
+                <input type="radio" class="form-check-input" name="display" value="title" id="display_title" <?php if ($display == "title") {
                     echo "CHECKED";
                 } ?>>
                 <label for="display_title" class="form-check-label">Title</label>
@@ -81,14 +91,15 @@
         </div>
         <div class="col-auto">
             <input type="submit" class="btn btn-primary" value="Search">
-            </form>
+
         </div>
     </div>
+    </form>
     <div class="text">
 
-        <?php foreach($note as $d) { ?>
+        <?php foreach ($note as $d) { ?>
         <?php
-                                            if(strlen($d['content']) > 300) {
+                                            if (strlen($d['content']) > 300) {
                                                 $d['content'] = substr($d['content'], 0, 300)."...";
                                             }; ?>
         <div class="element">
@@ -96,11 +107,11 @@
                                                 echo "<div class='row'>";
 
             echo "<div class='col-9'>";
-            if($display == "content") {
+            if ($display == "content") {
 
                 echo $d['content'];
 
-            } elseif($display == "title") {
+            } elseif ($display == "title") {
 
                 echo $d['title'];
 
