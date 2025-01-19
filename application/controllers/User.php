@@ -109,10 +109,22 @@ class User extends CI_Controller
                         $formPass = $this->hashPass($password);
                         $dbPass = $data['password'];
                         if ($dbPass == $formPass) {
+                            //success regular user login authentication
                             $_SESSION['user_id'] = $data['id'];
                             $_SESSION['username'] = $data['username'];
-                            // redirect('user/profile','refresh');
-                            redirect('/', 'refresh');
+
+
+                            $q = $this->db->query("select `status` from `users` where `id`=?;", $_SESSION['user_id']);
+                            [$res] = $q->result_array();
+                            if ($res['status'] == 'first_register') {
+                                $q = $this->db->query("UPDATE `users` SET `status` = 'normal' WHERE `users`.`id` = ?", $_SESSION['user_id']);
+                                redirect('quicknote/initCate', 'refresh');
+                            } else {
+                                redirect('/', 'refresh');
+                            }
+
+
+
                         } else {
                             $this->load->view('templates/header');
                             $this->load->view('user/login', array('err' => 'Wrong password, please re-enter your password'));

@@ -145,18 +145,34 @@ class Quicknote extends CI_Controller
         }
     }
 
-    // public function boot()
-    // {
-    //     $query_note_cate = $this->db->query("select * from note_cate");
-    //     $note_cate_res = $query_note_cate->result_array();
 
 
+    public function initCate()
+    {
+        if ($this->input->server("REQUEST_METHOD") == "GET") {
+            $this->load->view("templates/header");
+            $this->load->view("notecate/initCate");
+            $this->load->view("templates/footer");
+        }
+    }
 
-    //     $this->load->view('templates/boot-header');
 
-    //     $this->load->view("quicknote/insert", array("data" => $note_cate_res));
-    //     $this->load->view("templates/boot-footer");
+    public function addInitNoteCate()
+    {
+        if ($this->input->server('REQUEST_METHOD') == "POST") {
+            $form_data = $this->input->post();
+            $arr = $form_data["notecate"];
+            if (isset($arr) && !empty($arr)) {
+                foreach ($arr as $i) {
 
-    // }
+                    $this->db->query("insert into note_cate (name,user_id) values (?,?);", array($i,$this->user_id));
 
+                }
+            }
+        }
+
+        redirect("/", "refresh");
+
+
+    }
 }

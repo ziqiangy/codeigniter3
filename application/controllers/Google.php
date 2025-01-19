@@ -31,7 +31,11 @@ class Google extends CI_Controller
                 //login
                 $_SESSION['user_id'] = $row->id;
                 $_SESSION['username'] = $row->username;
+
+
                 redirect('/', 'refresh');
+
+
             } else {
                 //register
                 $id = $this->db->query("INSERT INTO `users` (email, google_id, lastname, firstname, username) values (?,?,?,?,?);", $user_arr);
@@ -41,7 +45,16 @@ class Google extends CI_Controller
                 if (isset($row)) {
                     $_SESSION['user_id'] = $row->id;
                     $_SESSION['username'] = $row->username;
-                    redirect('/', 'refresh');
+
+                    $q = $this->db->query("select `status` from `users` where `id`=?;", $_SESSION['user_id']);
+                    [$res] = $q->result_array();
+                    if ($res['status'] == 'first_register') {
+                        $q = $this->db->query("UPDATE `users` SET `status` = 'normal' WHERE `users`.`id` = ?", $_SESSION['user_id']);
+                        redirect('quicknote/initCate', 'refresh');
+                    } else {
+                        redirect('/', 'refresh');
+                    }
+
                 }
             }
             redirect('/', 'refresh');
