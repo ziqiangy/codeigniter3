@@ -197,7 +197,92 @@ class Quicknote extends CI_Controller
         }
 
         redirect("/", "refresh");
+    }
 
+    public function testpagelist($p = null)
+    {
+        $sql = "SELECT * FROM `quick_notes` where `user_id` = 1";
+        // $pageAt = 1;
 
+        if ($p == null) {
+            $pageAt = 1;
+        } else {
+            $pageAt = $p;
+        }
+        $limitPerPage = 10;
+        //1. count rows
+
+        $new = "count(*)";
+        $start = 'SELECT ';
+        $end = ' FROM';
+        $sql_count = preg_replace('#('.preg_quote($start).')(.*)('.preg_quote($end).')#si', '$1'.$new.'$3', $sql);
+        $res = $this->db->query($sql_count)->result_array();
+        $row_count = $res[0]['count(*)'];
+
+        //2. count page total numbers;
+
+        $page_count = ceil($row_count / $limitPerPage);
+
+        //3. calculate page option array
+        //$c = $pageAt, $m =$pageNum;
+        function rangeWithDots($c, $m)
+        {
+            $current = $c;
+            $last = $m;
+            $delta = 2;
+            $left = $current - $delta;
+            $right = $current + $delta + 1;
+            $range = array();
+            $rangeWithDots = array();
+            $l = -1;
+
+            for ($i = 1; $i <= $last; $i++) {
+                if ($i == 1 || $i == $last || $i >= $left && $i < $right) {
+                    array_push($range, $i);
+                }
+            }
+
+            for ($i = 0; $i < count($range); $i++) {
+                if ($l != -1) {
+                    if ($range[$i] - $l === 2) {
+                        array_push($rangeWithDots, $l + 1);
+                    } elseif ($range[$i] - $l !== 1) {
+                        array_push($rangeWithDots, '...');
+                    }
+                }
+
+                array_push($rangeWithDots, $range[$i]);
+                $l = $range[$i];
+            }
+
+            return $rangeWithDots;
+        }
+        $pageOptions = array();
+        foreach (rangeWithDots($pageAt, $page_count) as $value) {
+            array_push($pageOptions, $value);
+        }
+
+        //4. pagination query
+
+        function paginationQuery($query, $pageAt, $limitPerPage)
+        {
+
+            $this_page_first_result = ($pageAt - 1) * $limitPerPage;
+            $sql = $query." LIMIT ".$this_page_first_result.", ".$limitPerPage;
+            return $sql;
+        }
+
+        $paged_sql = paginationQuery($sql, $pageAt, $limitPerPage);
+        $d = $this->db->query($paged_sql)->result_array();
+
+        $data = array(
+            "limitPerPage" => $limitPerPage,
+            "pageAt" => $pageAt,
+            "pageOptions" => $pageOptions,
+            "data" => $d
+        );
+        $this->load->view("templates/header");
+        $this->load->view("quicknote/testpagelist", $data);
+        $this->load->view("templates/footer");
     }
 }
