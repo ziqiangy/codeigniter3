@@ -93,6 +93,12 @@ class Quicknote extends CI_Controller
             $this->load->view("quicknote/list", $data);
             $this->load->view('templates/footer');
 
+
+
+            $sql = "SELECT * FROM `quick_notes` where `user_id` = ".$this->user_id;
+
+
+
         } elseif ($this->input->server("REQUEST_METHOD") == "POST") {
             $data = $this->input->post();
             if (isset($data["keyword"]) && !empty($data["keyword"])) {
@@ -202,22 +208,48 @@ class Quicknote extends CI_Controller
     public function testpagelist($p = null)
     {
         $sql = "SELECT * FROM `quick_notes` where `user_id` = 1";
-        // $pageAt = 1;
-
-        if ($p == null) {
-            $pageAt = 1;
-        } else {
-            $pageAt = $p;
-        }
+        $sql_count = $this->countRows($sql);
+        $res = $this->db->query($sql_count)->result_array();
+        $row_count = $res[0]['count(*)'];
+        $p == null ? $pageAt = 1 : $pageAt = $p;
         $limitPerPage = 10;
+        $paged_d = $this->pagination($sql, $pageAt, $limitPerPage, $row_count);
+        $d = $this->db->query($paged_d['paged_sql'])->result_array();
+        $data = array(
+                        "limitPerPage" => $limitPerPage,
+                        "pageAt" => $pageAt,
+                        "pageOptions" => $paged_d['pageOptions'],
+                        "data" => $d
+                    );
+
+        $this->load->view("templates/header");
+        $this->load->view("quicknote/testpagelist", $data);
+        $this->load->view("templates/footer");
+    }
+
+
+    //pagination function1
+    public function countRows($sql)
+    {
+
+
         //1. count rows
 
         $new = "count(*)";
         $start = 'SELECT ';
         $end = ' FROM';
         $sql_count = preg_replace('#('.preg_quote($start).')(.*)('.preg_quote($end).')#si', '$1'.$new.'$3', $sql);
-        $res = $this->db->query($sql_count)->result_array();
-        $row_count = $res[0]['count(*)'];
+
+        return $sql_count;
+
+
+    }
+
+    //pagination function2
+    public function pagination($sql, $pageAt, $limitPerPage, $row_count)
+    {
+
+
 
         //2. count page total numbers;
 
@@ -273,16 +305,12 @@ class Quicknote extends CI_Controller
         }
 
         $paged_sql = paginationQuery($sql, $pageAt, $limitPerPage);
-        $d = $this->db->query($paged_sql)->result_array();
 
-        $data = array(
-            "limitPerPage" => $limitPerPage,
-            "pageAt" => $pageAt,
+        return array(
             "pageOptions" => $pageOptions,
-            "data" => $d
+            "paged_sql" => $paged_sql
         );
-        $this->load->view("templates/header");
-        $this->load->view("quicknote/testpagelist", $data);
-        $this->load->view("templates/footer");
+
     }
+
 }

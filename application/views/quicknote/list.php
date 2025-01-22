@@ -96,7 +96,6 @@
     </div>
     </form>
     <div class="text">
-
         <?php foreach ($note as $d) { ?>
         <?php
                                             if (strlen($d['content']) > 300) {
