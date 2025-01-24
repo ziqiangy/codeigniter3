@@ -38,7 +38,7 @@
         </div>
     </div>
     <hr>
-    <?php echo form_open("quicknote/list");?>
+    <?php echo form_open("");?>
     <div class="row">
         <div class="col-auto">
             <div class="form-floating">
@@ -63,7 +63,6 @@
                 <label for="c_id">categories</label>
             </div>
         </div>
-
         <div class="col-auto">
 
             <div class="form-check">
@@ -85,48 +84,106 @@
         </div>
         <div class="col-auto">
             <div class="form-floating">
-                <input class="form-control" id="keyword" name="keyword">
+                <input class="form-control" id="keyword" name="keyword" value="<?php if (isset($keyword) && !empty($keyword)) {
+                    echo $keyword;
+                } ?>">
                 <label for="keyword">Keyword</label>
             </div>
         </div>
-        <div class="col-auto">
-            <input type="submit" class="btn btn-primary" value="Search">
+        <!-- <div class="col-auto">
+            <div class="form-floating">
 
-        </div>
+                <select class="form-control" disabled name="limitPerPage" id="limitPerPage">
+                    <option value="<?php echo $limitPerPage; ?>">
+        <?php echo $limitPerPage; ?>
+        </option>
+
+        </select>
+        <label for="limitPerPage">limitPerPage</label>
     </div>
-    </form>
-    <div class="text">
-        <?php foreach ($note as $d) { ?>
+</div> -->
+
+<!-- <div class="col-auto">
+            <div class="form-floating">
+                <input class="form-control" disabled id="pageAt" name="pageAt"
+                    value="<?php echo $pageAt; ?>">
+<label for="pageAt">pageAt</label>
+</div>
+</div> -->
+<div class="col-auto">
+    <input type="submit" class="btn btn-primary" value="Search">
+
+</div>
+</div>
+</form>
+<div class="text">
+
+    <?php foreach ($data as $d) { ?>
+    <?php
+            if (strlen($d['content']) > 300) {
+                $d['content'] = substr($d['content'], 0, 300)."...";
+            }; ?>
+    <div class="element">
         <?php
-                                            if (strlen($d['content']) > 300) {
-                                                $d['content'] = substr($d['content'], 0, 300)."...";
-                                            }; ?>
-        <div class="element">
-            <?php
-                                                echo "<div class='row'>";
+            echo "<div class='row'>";
 
-            echo "<div class='col-9'>";
-            if ($display == "content") {
+        echo "<div class='col-9'>";
 
-                echo $d['content'];
 
-            } elseif ($display == "title") {
+        if ($display == "content") {
 
-                echo $d['title'];
+            echo $d['content'];
 
-            } else {
-                echo $d['content'];
+        } elseif ($display == "title") {
+
+            echo $d['title'];
+
+        } else {
+            echo $d['content'];
+        }
+
+
+
+        echo "</div>";
+        echo "<div class='col-3' style='margin:auto;'>";
+        echo anchor("quicknote/update/".$d['id'], "Edit", array("class" => "btn btn-outline-secondary"));
+        echo "</div>";
+        // echo anchor("quicknote/update/".$d['id'],$d['content']);
+        echo "</div>";
+        ?>
+    </div>
+
+    <?php } ?>
+</div>
+
+
+<div>
+    <?php
+        echo '<nav aria-label="Page navigation example">';
+            echo '  <ul class="pagination">';
+            echo '<li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>';
+
+            foreach ($pageOptions as $d) {
+                if ($d == $pageAt) {
+
+                    // echo '<li class="page-item active"><a class="page-link" href="">'.$d.'</a></li>';
+                    echo '<li class="page-item active">';
+                    echo anchor("quicknote/list/".$d."/".$c_id."/".$keyword."/".$display, $d, array("class" => "page-link"));
+                    echo '</li>';
+
+                } else {
+
+                    echo '<li class="page-item">';
+                    echo anchor("quicknote/list/".$d."/".$c_id."/".$keyword."/".$display, $d, array("class" => "page-link"));
+                    echo '</li>';
+
+                }
             }
 
-            echo "</div>";
-            echo "<div class='col-3' style='margin:auto;'>";
-            echo anchor("quicknote/update/".$d['id'], "Edit", array("class" => "btn btn-outline-secondary"));
-            echo "</div>";
-            // echo anchor("quicknote/update/".$d['id'],$d['content']);
-            echo "</div>";
-            ?>
-        </div>
+            echo '<li class="page-item disabled"><a class="page-link" href="#">Next</a></li>';
 
-        <?php } ?>
-    </div>
+            echo '</ul>';
+            echo '</nav>';
+            ?>
+</div>
 </div>

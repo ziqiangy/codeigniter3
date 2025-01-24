@@ -77,44 +77,72 @@ class Quicknote extends CI_Controller
             redirect("quicknote/list");
         }
     }
-    public function list()
+    public function list($p = 1, $c_id = 0, $keyword = 0, $display = "content")
     {
         if ($this->input->server("REQUEST_METHOD") == "GET") {
 
-            $res_n = $this->QuickNotes->list($this->user_id);
-            $res_c = $this->NoteCates->list($this->user_id);
+            if ($keyword != 0) {
+                //enabled keyword
+                if ($c_id == 0) {
+                    //list all categories notes
+                    $sql = "SELECT * FROM `quick_notes` WHERE `user_id` = ".$this->user_id." AND `content` LIKE '%".$keyword."%' ORDER BY `id` DESC";
+                } else {
+                    //list filtered categories notes
 
+                    $sql = "SELECT * FROM `quick_notes` WHERE `user_id` = ".$this->user_id." AND `cate_id` = ".$c_id." AND `content` LIKE '%".$keyword."%' ORDER BY `id` DESC";
+                }
+
+
+            } else {
+                //no keyword
+                if ($c_id == 0) {
+                    //list all categories notes
+                    $sql = "SELECT * FROM `quick_notes` WHERE `user_id` = ".$this->user_id." ORDER BY `id` DESC";
+
+                } else {
+                    //list filtered categories notes
+                    $sql = "SELECT * FROM `quick_notes` WHERE `user_id` = ".$this->user_id." AND `cate_id` = ".$c_id." ORDER BY `id` DESC";
+
+                }
+
+
+            }
+
+            $sql_count = $this->countRows($sql);
+            $res = $this->db->query($sql_count)->result_array();
+            $row_count = $res[0]['count(*)'];
+            $pageAt = $p;
+            $limitPerPage = 10;
+            $paged_d = $this->pagination($sql, $pageAt, $limitPerPage, $row_count);
+            $d = $this->db->query($paged_d['paged_sql'])->result_array();
+            $res_c = $this->NoteCates->list($this->user_id);
             $data = [
-                "note" => $res_n,
-                "cate" => $res_c,
-                "display" => "content",
-            ];
+                            "cate" => $res_c,
+                            "display" => $display,
+                            "c_id" => $c_id,
+                            "keyword" => $keyword,
+
+                            //pagination
+                            "limitPerPage" => $limitPerPage,
+                            "pageAt" => $pageAt,
+                            "pageOptions" => $paged_d['pageOptions'],
+                            "data" => $d
+
+                        ];
             $this->load->view("templates/header");
             $this->load->view("quicknote/list", $data);
             $this->load->view('templates/footer');
-
-
-
-            $sql = "SELECT * FROM `quick_notes` where `user_id` = ".$this->user_id;
-
-
-
         } elseif ($this->input->server("REQUEST_METHOD") == "POST") {
             $data = $this->input->post();
             if (isset($data["keyword"]) && !empty($data["keyword"])) {
                 //enabled keyword
-
-
                 if ($data["c_id"] == 0) {
                     //list all categories notes
-                    $q = $this->db->query("SELECT * FROM `quick_notes` WHERE `user_id` = ? AND `content` LIKE ? ORDER BY `id` DESC", array($this->user_id,'%'.$data["keyword"].'%'));
-                    $res = $q->result_array();
+                    $q = "SELECT * FROM `quick_notes` WHERE `user_id` = ".$this->user_id." AND `content` LIKE '%".$data['keyword']."%' ORDER BY `id` DESC";
                 } else {
                     //list filtered categories notes
 
-                    $q = $this->db->query("SELECT * FROM `quick_notes` WHERE `user_id` = ? AND `cate_id` = ? AND `content` LIKE ? ORDER BY `id` DESC", array($this->user_id,$data["c_id"],'%'.$data["keyword"].'%'));
-                    $res = $q->result_array();
-
+                    $q = "SELECT * FROM `quick_notes` WHERE `user_id` = ".$this->user_id." AND `cate_id` = ".$data["c_id"]." AND `content` LIKE '%".$data['keyword']."%' ORDER BY `id` DESC";
                 }
 
 
@@ -122,24 +150,43 @@ class Quicknote extends CI_Controller
                 //no keyword
                 if ($data["c_id"] == 0) {
                     //list all categories notes
-                    $res = $this->QuickNotes->list($this->user_id);
+                    $q = "SELECT * FROM `quick_notes` WHERE `user_id` = ".$this->user_id." ORDER BY `id` DESC";
+
                 } else {
                     //list filtered categories notes
-                    $res = $this->QuickNotes->listWithCate($this->user_id, $data["c_id"]);
+                    $q = "SELECT * FROM `quick_notes` WHERE `user_id` = ".$this->user_id." AND `cate_id` = ".$data["c_id"]." ORDER BY `id` DESC";
+
                 }
 
 
             }
 
 
+            //add pagination
+            $sql_count = $this->countRows($q);
+            $res = $this->db->query($sql_count)->result_array();
+            $row_count = $res[0]['count(*)'];
+            $pageAt = $p;
+            $limitPerPage = 10;
+            $paged_d = $this->pagination($q, $pageAt, $limitPerPage, $row_count);
+            $d = $this->db->query($paged_d['paged_sql'])->result_array();
+
+
             $res_c = $this->NoteCates->list($this->user_id);
 
 
             $data = array(
-                "note" => $res,
                 "cate" => $res_c,
-                "c_id" => $data["c_id"],
-                "display" => $data["display"],
+                            "cate" => $res_c,
+                            "display" => $data["display"],
+                            "keyword" => $data["keyword"],
+                            "c_id" => $data["c_id"],
+
+                            //pagination
+                            "limitPerPage" => $limitPerPage,
+                            "pageAt" => $pageAt,
+                            "pageOptions" => $paged_d['pageOptions'],
+                            "data" => $d
             );
             $this->load->view("templates/header");
             $this->load->view("quicknote/list", $data);
@@ -149,6 +196,7 @@ class Quicknote extends CI_Controller
         }
 
     }
+
     public function delete($id)
     {
         $this->QuickNotes->delete($id);
@@ -176,8 +224,6 @@ class Quicknote extends CI_Controller
         }
     }
 
-
-
     public function initCate()
     {
         if ($this->input->server("REQUEST_METHOD") == "GET") {
@@ -186,7 +232,6 @@ class Quicknote extends CI_Controller
             $this->load->view("templates/footer");
         }
     }
-
 
     public function addInitNoteCate()
     {
