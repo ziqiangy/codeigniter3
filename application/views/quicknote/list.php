@@ -103,13 +103,9 @@
     </div>
 </div> -->
 
-<!-- <div class="col-auto">
-            <div class="form-floating">
-                <input class="form-control" disabled id="pageAt" name="pageAt"
-                    value="<?php echo $pageAt; ?>">
-<label for="pageAt">pageAt</label>
-</div>
-</div> -->
+
+<input type="hidden" class="form-control" id="pageAt" name="pageAt" value="1">
+
 <div class="col-auto">
     <input type="submit" class="btn btn-primary" value="Search">
 

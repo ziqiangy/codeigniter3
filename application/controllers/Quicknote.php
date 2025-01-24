@@ -138,11 +138,11 @@ class Quicknote extends CI_Controller
                 //enabled keyword
                 if ($data["c_id"] == 0) {
                     //list all categories notes
-                    $q = "SELECT * FROM `quick_notes` WHERE `user_id` = ".$this->user_id." AND `content` LIKE '%".$data['keyword']."%' ORDER BY `id` DESC";
+                    $q = "SELECT * FROM `quick_notes` WHERE `user_id` = ".$this->user_id." AND `".$data['display']."` LIKE '%".$data['keyword']."%' ORDER BY `id` DESC";
                 } else {
                     //list filtered categories notes
 
-                    $q = "SELECT * FROM `quick_notes` WHERE `user_id` = ".$this->user_id." AND `cate_id` = ".$data["c_id"]." AND `content` LIKE '%".$data['keyword']."%' ORDER BY `id` DESC";
+                    $q = "SELECT * FROM `quick_notes` WHERE `user_id` = ".$this->user_id." AND `cate_id` = ".$data["c_id"]." AND `".$data['display']."` LIKE '%".$data['keyword']."%' ORDER BY `id` DESC";
                 }
 
 
@@ -166,7 +166,7 @@ class Quicknote extends CI_Controller
             $sql_count = $this->countRows($q);
             $res = $this->db->query($sql_count)->result_array();
             $row_count = $res[0]['count(*)'];
-            $pageAt = $p;
+            $pageAt = $data["pageAt"];
             $limitPerPage = 10;
             $paged_d = $this->pagination($q, $pageAt, $limitPerPage, $row_count);
             $d = $this->db->query($paged_d['paged_sql'])->result_array();
