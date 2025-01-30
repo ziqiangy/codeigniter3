@@ -22,7 +22,7 @@
       </span>
     </div>
   </div>
-  <div class="row"> <div class="text-center"><span>CiappTest By Peter Yuan</span><em>&copy;2024</em></div>
+  <div class="row"> <div class="text-center"><span>Ciapp By Peter Yuan</span><em>&copy;2025</em></div>
   </div>
 </div>
 
