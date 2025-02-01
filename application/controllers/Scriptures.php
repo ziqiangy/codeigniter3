@@ -13,13 +13,6 @@ class Scriptures extends CI_Controller
             exit;
         };
         $this->user_id = $_SESSION['user_id'];
-
-
-
-
-
-
-
     }
 
     public function home()

@@ -2,6 +2,18 @@
 
 class Calendar extends CI_Controller
 {
+    public $user_id;
+    public function __construct()
+    {
+        parent::__construct();
+
+        if (!isset($_SESSION['user_id'])) {
+            $this->session->set_flashdata("auth", 'Not authorized user, login first');
+            redirect('user/login');
+            exit;
+        };
+        $this->user_id = $_SESSION['user_id'];
+    }
     public function index()
     {
         $this->load->view("templates/header");
@@ -11,7 +23,7 @@ class Calendar extends CI_Controller
 
     public function listEventsAPI()
     {
-        $q = "SELECT * FROM `quick_notes` WHERE `due_date` IS NOT NULL";
+        $q = "SELECT * FROM `quick_notes` WHERE `user_id` = ".$this->user_id." AND `due_date` IS NOT NULL";
         $res = $this->db->query($q)->result_array();
         // var_dump($res);
         $arr = array();
