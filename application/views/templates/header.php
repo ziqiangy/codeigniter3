@@ -228,7 +228,7 @@
                         }
                     </style>
                     <button id="calendar_btn" class="btn btn-toggle align-items-center rounded collapsed">
-                <li><?php echo anchor("quicknote/list", "<span><i class='bi me-2 bi-list-task'></i>Note List</span>", array("class" => "link-light rounded")); ?>
+                <li><?php echo anchor("calendar", "<span><i class='bi me-2 bi-list-task'></i>Calendar</span>", array("class" => "link-light rounded")); ?>
                 </li>
                 </button>
 
