@@ -213,6 +213,29 @@
                         </ul>
                     </div>
                 </li>
+
+
+
+
+                <li class="mb-1">
+                    <style>
+                        #calendar_btn::before {
+                            content: none;
+                        }
+
+                        #calendar_btn a {
+                            text-decoration: none;
+                        }
+                    </style>
+                    <button id="calendar_btn" class="btn btn-toggle align-items-center rounded collapsed">
+                <li><?php echo anchor("quicknote/list", "<span><i class='bi me-2 bi-list-task'></i>Note List</span>", array("class" => "link-light rounded")); ?>
+                </li>
+                </button>
+
+                </li>
+
+
+
                 <li class="border-top my-3"></li>
                 <li class="mb-1">
                     <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse"
