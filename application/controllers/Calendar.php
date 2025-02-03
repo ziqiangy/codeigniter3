@@ -33,9 +33,9 @@ class Calendar extends CI_Controller
             if (isset($r["title"]) && !empty($r["title"])) {
                 $i["title"] = $r["title"];
             } else {
-                // $i["title"] = $r["content"];
+                $i["title"] = $r["content"];
                 // $i["title"] = "event";
-                $i["title"] = substr($r['content'], 0, 30)."...";
+                // $i["title"] = substr($r['content'], 0, 30)."...";
             }
             $i["start"] = $r["due_date"];
             array_push($arr, $i);
