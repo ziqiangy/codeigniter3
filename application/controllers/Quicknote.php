@@ -94,7 +94,7 @@ class Quicknote extends CI_Controller
 
 
             } else {
-                //no keyword
+                //no keyword $keyword = 0
                 if ($c_id == 0) {
                     //list all categories notes
                     $sql = "SELECT * FROM `quick_notes` WHERE `user_id` = ".$this->user_id." ORDER BY `id` DESC";
@@ -134,7 +134,7 @@ class Quicknote extends CI_Controller
             $this->load->view('templates/footer');
         } elseif ($this->input->server("REQUEST_METHOD") == "POST") {
             $data = $this->input->post();
-            if (isset($data["keyword"]) && !empty($data["keyword"])) {
+            if (isset($data["keyword"]) && !empty($data["keyword"]) && $data["keyword"] != 0) {
                 //enabled keyword
                 if ($data["c_id"] == 0) {
                     //list all categories notes
@@ -148,6 +148,7 @@ class Quicknote extends CI_Controller
 
             } else {
                 //no keyword
+                $data["keyword"] = 0;
                 if ($data["c_id"] == 0) {
                     //list all categories notes
                     $q = "SELECT * FROM `quick_notes` WHERE `user_id` = ".$this->user_id." ORDER BY `id` DESC";

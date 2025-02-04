@@ -146,94 +146,100 @@
                 <span class="fs-5 fw-semibold">Ciapp</span>
             </a>
             <ul class="list-unstyled ps-0">
+
+                <style>
+                    #notes_btn::before {
+                        content: none;
+                    }
+
+                    #notes_btn a {
+                        text-decoration: none;
+                    }
+                </style>
                 <li class="mb-1">
-                    <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse"
-                        data-bs-target="#home-collapse" aria-expanded="true">
-                        Home
-                    </button>
-                    <div class="collapse show" id="home-collapse">
-
-                        <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                            <li><?php echo anchor("/", "<span><i class='bi me-2 bi-speedometer2'></i>Dashboard</span>", array("class" => "link-light rounded")); ?>
-                            </li>
-                            <li><?php echo anchor("dictionary/home", "<span><i class='bi me-2 bi-alphabet'></i>Dictionary</span>", array("class" => "link-light rounded")); ?>
-                            </li>
-                            <li><?php echo anchor("scriptures/home", "<span><i class='bi me-2 bi-journals'></i>Scriptures</span>", array("class" => "link-light rounded")); ?>
-                            </li>
-                            <!-- <li><a href="#" class="link-light rounded"><span><i
-                                            class="bi me-2 bi-sticky-fill"></i>Quicknotes</span></a></li>
-                            <li><a href="#" class="link-light rounded"><span><i
-                                            class="bi me-2 bi-music-note-list"></i>Playlist</span></a></li>
-                            <li><a href="#" class="link-light rounded"><span><i
-                                            class="bi me-2 bi-cookie"></i>Recipes</span></a></li>
-                            <li><a href="#" class="link-light rounded"><span><i
-                                            class="bi me-2 bi-journals"></i>Blogs</span></a></li>
-                            <li><a href="#" class="link-light rounded"><span><i
-                                            class="bi me-2 bi-check2-square"></i>Todos</span></a></li> -->
-                        </ul>
-                    </div>
-                </li>
-                <li class="mb-1">
-                    <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse"
-                        data-bs-target="#dashboard-collapse" aria-expanded="false">
-                        Flashcards
-                    </button>
-                    <div class="collapse" id="dashboard-collapse">
-                        <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-
-                            <li><?php echo anchor("flashcard/oneCardView", "<span><i class='bi me-2 bi-card-text'></i>Card Board</span>", array("class" => "link-light rounded")); ?>
-                            </li>
-                            <li><?php echo anchor("flashcard/displayAllList", "<span><i class='bi me-2 bi-list-task'></i>Card List</span>", array("class" => "link-light rounded")); ?>
-                            </li>
-                            <li><?php echo anchor("flashcard/insertView", "<span><i class='bi me-2 bi-plus'></i>Insert One</span>", array("class" => "link-light rounded")); ?>
-                            </li>
-                            <li><?php echo anchor("flashcard/displayMultiInsert", "<span><i class='bi me-2 bi-plus-square'></i>Insert Multi</span>", array("class" => "link-light rounded")); ?>
-                            </li>
-                            <li><?php echo anchor("flashcate/list", "<span><i class='bi me-2 bi-list-task'></i>Show my Categories</span>", array("class" => "link-light rounded")); ?>
-                            </li>
-                            <li><?php echo anchor("flashcate/insert", "<span><i class='bi me-2 bi-plus'></i>Insert Category</span>", array("class" => "link-light rounded")); ?>
-                            </li>
-                            <li><?php echo anchor("flashcard/searchByCate", "<span><i class='bi me-2 bi-search'></i>Search by Category</span>", array("class" => "link-light rounded")); ?>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
-                <li class="mb-1">
-                    <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse"
-                        data-bs-target="#orders-collapse" aria-expanded="false">
-                        Notes
-                    </button>
-                    <div class="collapse" id="orders-collapse">
-                        <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                            <li><?php echo anchor("quicknote/list", "<span><i class='bi me-2 bi-list-task'></i>Note List</span>", array("class" => "link-light rounded")); ?>
-                            </li>
-                            <li><?php echo anchor("quicknote/insert", "<span><i class='bi me-2 bi-plus'></i>Note Insert</span>", array("class" => "link-light rounded")); ?>
-                            </li>
-                            <!-- <li><a href="#" class="link-light rounded">Returned</a></li> -->
-                        </ul>
-                    </div>
-                </li>
-
-
-
-
-                <li class="mb-1">
-                    <style>
-                        #calendar_btn::before {
-                            content: none;
-                        }
-
-                        #calendar_btn a {
-                            text-decoration: none;
-                        }
-                    </style>
-                    <button id="calendar_btn" class="btn btn-toggle align-items-center rounded collapsed">
-                <li><?php echo anchor("calendar", "<span><i class='bi me-2 bi-list-task'></i>Calendar</span>", array("class" => "link-light rounded")); ?>
+                    <button id="notes_btn" class="btn btn-toggle align-items-center rounded collapsed">
+                <li><?php echo anchor("quicknote/list", "<span><i class='bi me-2 bi-list-task'></i>Notes</span>", array("class" => "link-light rounded")); ?>
                 </li>
                 </button>
+                </li>
+                <style>
+                    #flashcard_btn::before {
+                        content: none;
+                    }
 
+                    #flashcard_btn a {
+                        text-decoration: none;
+                    }
+                </style>
+                <li class="mb-1">
+                    <button id="flashcard_btn" class="btn btn-toggle align-items-center rounded collapsed">
+                <li><?php echo anchor("flashcard/oneCardView", "<span><i class='bi me-2 bi-card-text'></i>Cards</span>", array("class" => "link-light rounded")); ?>
+                </li>
+                </button>
                 </li>
 
+                <style>
+                    #calendar_btn::before {
+                        content: none;
+                    }
+
+                    #calendar_btn a {
+                        text-decoration: none;
+                    }
+                </style>
+                <li class="mb-1">
+                    <button id="calendar_btn" class="btn btn-toggle align-items-center rounded collapsed">
+                <li><?php echo anchor("calendar", "<span><i class='bi me-2 bi-calendar-date'></i>Calendar</span>", array("class" => "link-light rounded")); ?>
+                </li>
+                </button>
+                </li>
+
+
+                <style>
+                    #dashboard_btn::before {
+                        content: none;
+                    }
+
+                    #dashboard_btn a {
+                        text-decoration: none;
+                    }
+                </style>
+                <li class="mb-1">
+                    <button id="dashboard_btn" class="btn btn-toggle align-items-center rounded collapsed">
+                <li><?php echo anchor("/", "<span><i class='bi me-2 bi-speedometer2'></i>Dashboard</span>", array("class" => "link-light rounded")); ?>
+                </li>
+                </button>
+                </li>
+                <style>
+                    #dictionary_btn::before {
+                        content: none;
+                    }
+
+                    #dictionary_btn a {
+                        text-decoration: none;
+                    }
+                </style>
+                <li class="mb-1">
+                    <button id="dictionary_btn" class="btn btn-toggle align-items-center rounded collapsed">
+                <li><?php echo anchor("dictionary/home", "<span><i class='bi me-2 bi-book'></i>Dictionary</span>", array("class" => "link-light rounded")); ?>
+                </li>
+                </button>
+                </li>
+                <style>
+                    #scriptures_btn::before {
+                        content: none;
+                    }
+
+                    #scriptures_btn a {
+                        text-decoration: none;
+                    }
+                </style>
+                <li class="mb-1">
+                    <button id="scriptures_btn" class="btn btn-toggle align-items-center rounded collapsed">
+                <li><?php echo anchor("scriptures/home", "<span><i class='bi me-2 bi-journals'></i>Scriptures</span>", array("class" => "link-light rounded")); ?>
+                </li>
+                </button>
+                </li>
 
 
                 <li class="border-top my-3"></li>
@@ -254,6 +260,8 @@
                         </ul>
                     </div>
                 </li>
+
+
             </ul>
         </div>
     </div>
@@ -316,7 +324,7 @@
                                     echo anchor("user/login", "login", array('class' => 'btn btn-outline-dark ms-2'));
                                 }
                             }
-                            ?>
+                ?>
                         <!-- <div class="p-2"><button class="btn btn-outline-dark" type="submit">register</button></div> -->
                         <!-- <div class="p-2">
                             <button class="btn btn-outline-dark" type="submit">Login</button>

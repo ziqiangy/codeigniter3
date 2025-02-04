@@ -1,48 +1,49 @@
-
-
 <style>
-    .box-father{
-        display:flex;
-        justify-content:center;
-    }
-    .box-child{   
-        width:400px;
-        /* height:300px; */
-        border:3px solid black;
-        background-color:#fff7d1;
-        border-radius:10px;
-        padding:15px;
-        
+    .box-father {
+        display: flex;
+        justify-content: center;
     }
 
-    .h-title{
-        text-align:center;
+    .box-child {
+        width: 400px;
+        /* height:300px; */
+        border: 3px solid black;
+        background-color: #fff7d1;
+        border-radius: 10px;
+        padding: 15px;
+
     }
-    .text-father{
-        display:flex;
+
+    .h-title {
+        text-align: center;
+    }
+
+    .text-father {
+        display: flex;
         /* justify-content:center; */
     }
-    .text-child{
 
-    }
+    .text-child {}
 </style>
 
 <style>
-    table{
-        table-layout:fixed;
-        width:100%;
+    table {
+        table-layout: fixed;
+        width: 100%;
     }
+
     td:nth-child(1) {
         /* width:25%; */
         white-space: nowrap;
         overflow: hidden;
-        text-overflow:ellipsis;
+        text-overflow: ellipsis;
     }
+
     td:nth-child(2) {
         /* width:75%; */
         white-space: nowrap;
         overflow: hidden;
-        text-overflow:ellipsis;
+        text-overflow: ellipsis;
     }
 </style>
 
@@ -52,32 +53,33 @@
             <h1>List Cards</h1>
         </div>
 
-        <?php echo anchor("flashcard/insertView","insert",["class"=>"btn btn-primary"]); ?>
-    
+        <?php echo anchor("flashcard/insertView", "insert", ["class" => "btn btn-primary"]); ?>
+        <?php echo anchor("flashcard/searchByCate", "search", ["class" => "btn btn-primary"]); ?>
+
         <div class="text-father">
-            <div class="text-child">      
+            <div class="text-child">
 
-                        
-            <table>
-                <tr>
-                    <th>term</th>
-                    <th>definition</th>
-                    <th>category</th>
-                </tr>
-                <?php foreach($data as $d) { ?>
-                        <tr class="">
-                        <td><?php echo anchor("flashcard/updateView/".$d['id'],$d['term']) ?></td>
-                            <td><?php echo $d['definition'] ?></td>
-                            <td><?php echo empty($d['category_name']) ? "No Category" : $d['category_name']; ?></td>
 
-                        </tr>
+                <table>
+                    <tr>
+                        <th>term</th>
+                        <th>definition</th>
+                        <th>category</th>
+                    </tr>
+                    <?php foreach ($data as $d) { ?>
+                    <tr class="">
+                        <td><?php echo anchor("flashcard/updateView/".$d['id'], $d['term']) ?>
+                        </td>
+                        <td><?php echo $d['definition'] ?>
+                        </td>
+                        <td><?php echo empty($d['category_name']) ? "No Category" : $d['category_name']; ?>
+                        </td>
+
+                    </tr>
                     <?php } ?>
-            </table>
+                </table>
 
             </div>
         </div>
     </div>
 </div>
-
-
-

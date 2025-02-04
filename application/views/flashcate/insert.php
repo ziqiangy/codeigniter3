@@ -1,24 +1,26 @@
 <style>
-    .box-father{
-        display:flex;
-        justify-content:center;
-    }
-    .box-child{   
-        width:400px;
-        height:300px;
-        border:3px solid black;
-        background-color:#fff7d1;
-        border-radius:10px;
-        padding:15px;
-        
+    .box-father {
+        display: flex;
+        justify-content: center;
     }
 
-    .h-title{
-        text-align:center;
+    .box-child {
+        width: 400px;
+        height: 300px;
+        border: 3px solid black;
+        background-color: #fff7d1;
+        border-radius: 10px;
+        padding: 15px;
+
     }
-    .text-father{
-        display:flex;
-        justify-content:center;
+
+    .h-title {
+        text-align: center;
+    }
+
+    .text-father {
+        display: flex;
+        justify-content: center;
     }
 </style>
 
@@ -30,25 +32,27 @@
         </div>
 
 
-    
-        <div class="text-father">
-            <div class="text-child">            
-                
 
-            <?php echo form_open("flashcate/insert") ?>
-            <div class="form-group">
-            <label for="name">category name:</label>
-<input id="name" class="form-control" type="text" name="name" value="">
-                
-            </div>
-<input type="submit" class="btn btn-primary mt-2" value="submit">
-</form>
-            
+        <div class="text-father">
+            <div class="text-child">
+
+
+                <?php echo form_open("flashcate/insert") ?>
+                <div class="form-group">
+                    <label for="name">category name:</label>
+                    <input id="name" class="form-control" type="text" name="name" value="">
+
+                </div>
+                <input type="submit" class="btn btn-primary mt-2" value="submit">
+                </form>
+
+                <br>
+                <?php echo anchor("flashcate/list", "Change categories", array("class" => "btn btn-secondary")); ?>
+
+
 
 
             </div>
         </div>
     </div>
 </div>
-
-
