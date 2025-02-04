@@ -8,8 +8,8 @@
 
 
     <!-- ciapp header -->
-    <title>MyApp</title>
-    <link rel="icon" type="image/x-icon" href="/pictures/wp.jpg">
+    <title>Ciapp</title>
+    <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
 
     <link rel="stylesheet" href="/css/font-awesome.min.css">
     <script src="/js/jquery-3.7.1.min.js"></script>
