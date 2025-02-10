@@ -9,6 +9,7 @@
 
     <!-- ciapp header -->
     <title>Ciapp</title>
+    <link rel="manifest" href="/manifest.json">
     <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
 
     <link rel="stylesheet" href="/css/font-awesome.min.css">
