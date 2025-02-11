@@ -63,7 +63,7 @@ class Google extends CI_Controller
 
 
         } else {
-            $redirect_uri = $client->setRedirectUri(base_url("google/oauth2callback"));
+            $redirect_uri = $client->setRedirectUri(base_url()."index.php/google/oauth2callback");
             header('Location: ' . filter_var($redirect_uri, FILTER_SANITIZE_URL));
         }
 
@@ -74,9 +74,12 @@ class Google extends CI_Controller
     public function oauth2callback()
     {
 
+
+
+
         $client = new Google\Client();
         $client->setAuthConfigFile('./secure/client_secret.json');
-        $client->setRedirectUri(base_url("google/oauth2callback"));
+        $client->setRedirectUri(base_url()."index.php/google/oauth2callback");
         $client->addScope('email');
         $client->addScope('profile');
 
@@ -101,7 +104,7 @@ class Google extends CI_Controller
         } else {
             $client->authenticate($_GET['code']);
             $_SESSION['access_token'] = $client->getAccessToken();
-            $redirect_uri = base_url("google");
+            $redirect_uri = base_url()."index.php/google";
             header('Location: ' . filter_var($redirect_uri, FILTER_SANITIZE_URL));
         }
 
