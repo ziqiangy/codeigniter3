@@ -359,4 +359,14 @@ class Quicknote extends CI_Controller
 
     }
 
+    public function detail($id)
+    {
+        $sql = "SELECT * FROM `quick_notes` WHERE `user_id` = ".$this->user_id." And `id`= ".$id."";
+        $res = $this->db->query($sql)->row_array();
+
+        $this->load->view("templates/header");
+        $this->load->view("quicknote/detail", array("data" => $res));
+        $this->load->view("templates/footer");
+    }
+
 }

@@ -123,7 +123,7 @@
         <?php
             echo "<div class='row'>";
 
-        echo "<div class='col-9'>";
+        echo "<div class='col-8'>";
 
 
         if ($display == "content") {
@@ -141,10 +141,21 @@
 
 
         echo "</div>";
-        echo "<div class='col-3' style='margin:auto;'>";
-        echo anchor("quicknote/update/".$d['id'], "Edit", array("class" => "btn btn-outline-secondary"));
+
+
+
+        echo "<div class='col-2' style='margin:auto;'>";
+        echo anchor("quicknote/detail/".$d['id'], '<i class="bi bi-arrow-right-square-fill"></i>', array("class" => "btn btn-outline-secondary"));
         echo "</div>";
-        // echo anchor("quicknote/update/".$d['id'],$d['content']);
+
+
+
+
+        echo "<div class='col-2' style='margin:auto;'>";
+        echo anchor("quicknote/update/".$d['id'], '<i class="bi bi-pencil-square"></i>', array("class" => "btn btn-outline-secondary"));
+        echo "</div>";
+
+
         echo "</div>";
         ?>
     </div>

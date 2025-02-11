@@ -176,7 +176,7 @@
                 </style>
                 <li class="mb-1">
                     <button id="flashcard_btn" class="btn btn-toggle align-items-center rounded collapsed">
-                <li><?php echo anchor("flashcard/oneCardView", "<span><i class='bi me-2 bi-card-text'></i>Cards</span>", array("class" => "link-light rounded")); ?>
+                <li><?php echo anchor("flashcard/oneCardView", "<span><i class='bi me-2 bi-card-text'></i>Flashcards</span>", array("class" => "link-light rounded")); ?>
                 </li>
                 </button>
                 </li>
