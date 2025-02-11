@@ -23,6 +23,8 @@
     <link rel="stylesheet" href="/css/jquery.mCustomScrollbar.min.css" />
     <!--Peter's Personal CSS-->
     <link rel="stylesheet" href="/css/peter_side_nav_bar.css">
+    <!-- light dark transfer -->
+    <link rel="stylesheet" href="/css/lightdark.css">
     <!--MaliBu Scrollbar Sidebar scrollbar JS-->
     <script src="/js/jquery.mCustomScrollbar.concat.min.js"></script>
     <script src="/js/5009a972bb.js"></script>
@@ -302,6 +304,7 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <div class="d-flex flex-row-reverse collapse navbar-collapse" id="navbarSupportedContent">
+
                         <?php
                             //only superadmin can register new user
                             if (isset($_SESSION["superadmin"]) && $_SESSION['superadmin'] == 1) {
@@ -326,11 +329,21 @@
                                 }
                             }
                 ?>
-                        <!-- <div class="p-2"><button class="btn btn-outline-dark" type="submit">register</button></div> -->
-                        <!-- <div class="p-2">
-                            <button class="btn btn-outline-dark" type="submit">Login</button>
-                        </div> -->
-                        <!-- <div class="p-2"><button class="btn btn-outline-dark" type="submit">Search</button></div> -->
+                        <!-- light dark option -->
+                        <!-- <fieldset class="toggle-group" id="colorScheme">
+                            <label>
+                                <input type="radio" name="color-scheme" id="color-scheme-light" value="0" data-sr>
+                                Light
+                            </label>
+                            <label>
+                                <input type="radio" name="color-scheme" value="auto" checked data-sr>
+                                Auto
+                            </label>
+                            <label>
+                                <input type="radio" name="color-scheme" id="color-scheme-dark" value="1" data-sr>
+                                Dark
+                            </label>
+                        </fieldset> -->
                     </div>
                 </div>
         </nav>

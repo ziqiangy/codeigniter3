@@ -1,0 +1,61 @@
+    :where(html) {
+  --darkmode: 0;
+  container-name: root;
+  container-type: normal;
+}
+
+body {
+  --background-color: #FFF;
+  --text-color: #222;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  color-scheme: light dark;
+  font-family: ui-sans-serif, system-ui, sans-serif;
+}
+
+@media (prefers-color-scheme: dark) {
+  html { --darkmode: 1; }
+}
+@media (prefers-color-scheme: light) {
+  html { --darkmode: 0; }
+}
+
+html:has(#color-scheme-light:checked) { --darkmode: 0; }
+html:has(#color-scheme-dark:checked) { --darkmode: 1; }
+
+@container root style(--darkmode: 1) {
+  body {
+    --background-color: hsl(228, 5%, 15%);
+    --text-color: hsl(228, 5%, 80%);
+  }
+}
+
+/* DEMO */
+.toggle-group {
+  border: 2px solid #CCC;
+  border-radius: 24px;
+  inline-size: fit-content;
+  padding: 3px;
+}
+.toggle-group label {
+  border-radius: 21px;
+  cursor: pointer;
+  display: inline-flex;
+  padding: 0.5em 1em;
+  text-align: center;
+  user-select: none;
+}
+.toggle-group label:has(input:checked) {
+  background-color: #CCC;
+  color: #333;
+}
+
+[data-sr] {
+  clip: rect(0 0 0 0); 
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap; 
+  width: 1px;
+}
