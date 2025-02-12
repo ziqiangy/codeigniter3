@@ -363,6 +363,7 @@ class Quicknote extends CI_Controller
     {
         $sql = "SELECT * FROM `quick_notes` WHERE `user_id` = ".$this->user_id." And `id`= ".$id."";
         $res = $this->db->query($sql)->row_array();
+        $res["content"] = nl2br($res["content"]);
 
         $this->load->view("templates/header");
         $this->load->view("quicknote/detail", array("data" => $res));
