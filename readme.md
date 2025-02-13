@@ -49,28 +49,23 @@ while maintaining scalability for future enhancements.
    Automatically track when notes are created or modified.
 
 - **Save/Review**: 
-  
   Easy to save searched vocabulary into flashcard deck
 
-- **To-Do Lists & Calendar
-   Sync**: Schedule tasks with due dates, reminders, and
-   priority levels.
+- **To-Do Lists & CalendarSync**: 
+  Schedule tasks with due dates, reminders, and priority levels.
 
 ---
 
 ## **Technology Stack**
 
-- **Backend**: PHP 8+,
+- **Backend**: PHP 8.3,
    MySQL/MariaDB
 
 - **Frontend**: HTML5,
    CSS3 (Bootstrap), JavaScript (jQuery)
 
 - **Additional Tools**:
-  
-  - Composer
-  
-  - NPM
+   Composer, NPM
 
 - **Server Requirements**:
    Apache, PHP 8.3, SSL/TLS for secure
@@ -101,7 +96,6 @@ while maintaining scalability for future enhancements.
 1. **Clone the Repository**
    
    git clone https://github.com/ziqiangy/codeigniter3.git  
-   cd ciapp
 
 2. **Install Dependencies**
    
@@ -110,15 +104,15 @@ while maintaining scalability for future enhancements.
 
 3. **Configure the Database**
    
-   - Create a MySQL database and user.
+   Create a MySQL database and user.
    
-   - Import the provided SQL schema
+   Import the provided SQL schema
      (`database/ciapptest_schema.sql`).
      
-   - For the lds scripture check github mormon-documentation-project
-   - For the dictionary check github matthewreagan/WebstersEnglishDictionary
+   For the lds scripture check github mormon-documentation-project
+   For the dictionary check github matthewreagan/WebstersEnglishDictionary
    
-   - Update config files
+   Update config files
      `application/config/config.php`
      
      `application/config/database.php`
@@ -157,4 +151,4 @@ For inquiries, partnerships, or contributions, contact:
 
 - Email: peter.bond40@gmail.com
 
-- GitHub: [@](https://github.com/ziqiangy)
+- GitHub: [https://github.com/ziqiangy](https://github.com/ziqiangy)
