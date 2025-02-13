@@ -1,6 +1,6 @@
 
 
-# **LifeFlow: All-in-One Personal Productivity Suite**
+# **Ciapp: All-in-One Personal Productivity Suite**
 
 **A Lightweight Web Tool for Organizing Thoughts, Learning, and Daily Tasks**
 
@@ -8,11 +8,11 @@
 
 ## **Project Overview**
 
-LifeFlow is a comprehensive web application designed to empower
+Ciapp is a comprehensive web application designed to empower
 users to manage their personal and professional lives efficiently.
 Combining **note-taking**, **flashcard-based
 learning**, and **task management** into
-a single intuitive platform, LifeFlow offers a minimalist yet
+a single intuitive platform, Ciapp offers a minimalist yet
 powerful alternative to tools like Notion. Built with PHP and modern
 web technologies, it prioritizes simplicity, speed, and ease of use
 while maintaining scalability for future enhancements.
@@ -73,7 +73,7 @@ while maintaining scalability for future enhancements.
   - NPM
 
 - **Server Requirements**:
-   Apache/Nginx, PHP extensions (PDO, OpenSSL), SSL/TLS for secure
+   Apache, PHP 8.3, SSL/TLS for secure
    deployment
 
 ---
@@ -100,7 +100,7 @@ while maintaining scalability for future enhancements.
 
 1. **Clone the Repository**
    
-   git clone https://github.com/ziqiangy/ciapp.git  
+   git clone https://github.com/ziqiangy/codeigniter3.git  
    cd ciapp
 
 2. **Install Dependencies**
@@ -147,7 +147,7 @@ while maintaining scalability for future enhancements.
 
 ## **License**
 
-LifeFlow is open-source under the [MIT License](https://chat.deepseek.com/a/chat/s/LICENSE.md).
+Ciapp is open-source under the [MIT License](https://chat.deepseek.com/a/chat/s/LICENSE.md).
 
 ---
 
@@ -157,4 +157,4 @@ For inquiries, partnerships, or contributions, contact:
 
 - Email: peter.bond40@gmail.com
 
-- GitHub: [@](https://github.com/yourusername)ziqiangy
+- GitHub: [@](https://github.com/ziqiangy)

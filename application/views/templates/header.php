@@ -161,7 +161,7 @@
                 </style>
                 <li class="mb-1">
                     <button id="notes_btn" class="btn btn-toggle align-items-center rounded collapsed">
-                <li><?php echo anchor("quicknote/list", "<span><i class='bi me-2 bi-list-task'></i>Notes</span>", array("class" => "link-light rounded")); ?>
+                <li><?php echo anchor("quicknote/list", "<span><i class='bi me-2 bi-list-task'></i>Quicknotes</span>", array("class" => "link-light rounded")); ?>
                 </li>
                 </button>
                 </li>
