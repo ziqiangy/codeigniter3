@@ -8,14 +8,14 @@ application/logs/*
 
 !application/*/.htaccess
 
-composer.lock
+
 tests/mocks/database/ci_test.sqlite
 
 user_guide_src/build/*
 user_guide_src/cilexer/build/*
 user_guide_src/cilexer/dist/*
 user_guide_src/cilexer/pycilexer.egg-info/*
-/vendor/
+
 
 # IDE Files
 #-------------------------
@@ -33,9 +33,14 @@ user_guide_src/cilexer/pycilexer.egg-info/*
 /tests/results/
 
 
-/node_modules/
+##Composer
+composer.lock
+/vendor/
 
+
+##npm
 package-lock.json
+/node_modules/
 
 
 
@@ -43,6 +48,6 @@ package-lock.json
 application/config/config.php
 application/config/database.php
 
-## Other data
+## Google auth
 
 /secure/
